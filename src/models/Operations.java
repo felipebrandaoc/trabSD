@@ -40,29 +40,31 @@ public class Operations {
 
     public void salvaGrafo(String caminho) throws org.apache.thrift.TException;
 
-    public boolean addVertice(int nome, int cor, String descricao, double peso) throws org.apache.thrift.TException;
+    public boolean addVertice(int nome, int cor, double peso, String descricao) throws org.apache.thrift.TException;
 
-    public boolean addAresta(int v1, int v2, double peso, boolean direcao, String descricao) throws org.apache.thrift.TException;
+    public boolean addAresta(int v1, int v2, double peso, int direcao, String descricao) throws org.apache.thrift.TException;
 
     public boolean delVertice(int nome) throws org.apache.thrift.TException;
 
     public boolean delAresta(int v1, int v2) throws org.apache.thrift.TException;
 
-    public boolean upVertice(int nomeUp, Vertice V) throws org.apache.thrift.TException;
+    public boolean upVertice(Vertice V, int nomeUp) throws org.apache.thrift.TException;
 
     public boolean upAresta(int nomeV1, int nomeV2, Aresta A) throws org.apache.thrift.TException;
 
     public Vertice getVertice(int nome) throws org.apache.thrift.TException;
 
-    public Aresta getAresta(int v1, int v2, boolean flag) throws org.apache.thrift.TException;
+    public Aresta getAresta(int v1, int v2, int direcao) throws org.apache.thrift.TException;
 
     public String exibeGrafo() throws org.apache.thrift.TException;
 
-    public String exibeVertice(boolean flag) throws org.apache.thrift.TException;
+    public String exibeVertice() throws org.apache.thrift.TException;
 
-    public String exibeAresta(boolean flag) throws org.apache.thrift.TException;
+    public String exibeAresta() throws org.apache.thrift.TException;
 
-    public String listarArestasVertice(int nomeV, boolean flag) throws org.apache.thrift.TException;
+    public String listarArestasVertice(int nomeV) throws org.apache.thrift.TException;
+
+    public String listarVerticeAresta(int v1, int v2) throws org.apache.thrift.TException;
 
     public String listarVizinhosVertice(int nomeV) throws org.apache.thrift.TException;
 
@@ -74,29 +76,31 @@ public class Operations {
 
     public void salvaGrafo(String caminho, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void addVertice(int nome, int cor, String descricao, double peso, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void addVertice(int nome, int cor, double peso, String descricao, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void addAresta(int v1, int v2, double peso, boolean direcao, String descricao, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void addAresta(int v1, int v2, double peso, int direcao, String descricao, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
     public void delVertice(int nome, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
     public void delAresta(int v1, int v2, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void upVertice(int nomeUp, Vertice V, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void upVertice(Vertice V, int nomeUp, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
     public void upAresta(int nomeV1, int nomeV2, Aresta A, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
     public void getVertice(int nome, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void getAresta(int v1, int v2, boolean flag, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void getAresta(int v1, int v2, int direcao, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
     public void exibeGrafo(org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void exibeVertice(boolean flag, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void exibeVertice(org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void exibeAresta(boolean flag, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void exibeAresta(org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void listarArestasVertice(int nomeV, boolean flag, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void listarArestasVertice(int nomeV, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+
+    public void listarVerticeAresta(int v1, int v2, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
     public void listarVizinhosVertice(int nomeV, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
@@ -162,19 +166,19 @@ public class Operations {
       return;
     }
 
-    public boolean addVertice(int nome, int cor, String descricao, double peso) throws org.apache.thrift.TException
+    public boolean addVertice(int nome, int cor, double peso, String descricao) throws org.apache.thrift.TException
     {
-      send_addVertice(nome, cor, descricao, peso);
+      send_addVertice(nome, cor, peso, descricao);
       return recv_addVertice();
     }
 
-    public void send_addVertice(int nome, int cor, String descricao, double peso) throws org.apache.thrift.TException
+    public void send_addVertice(int nome, int cor, double peso, String descricao) throws org.apache.thrift.TException
     {
       addVertice_args args = new addVertice_args();
       args.setNome(nome);
       args.setCor(cor);
-      args.setDescricao(descricao);
       args.setPeso(peso);
+      args.setDescricao(descricao);
       sendBase("addVertice", args);
     }
 
@@ -188,13 +192,13 @@ public class Operations {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "addVertice failed: unknown result");
     }
 
-    public boolean addAresta(int v1, int v2, double peso, boolean direcao, String descricao) throws org.apache.thrift.TException
+    public boolean addAresta(int v1, int v2, double peso, int direcao, String descricao) throws org.apache.thrift.TException
     {
       send_addAresta(v1, v2, peso, direcao, descricao);
       return recv_addAresta();
     }
 
-    public void send_addAresta(int v1, int v2, double peso, boolean direcao, String descricao) throws org.apache.thrift.TException
+    public void send_addAresta(int v1, int v2, double peso, int direcao, String descricao) throws org.apache.thrift.TException
     {
       addAresta_args args = new addAresta_args();
       args.setV1(v1);
@@ -262,17 +266,17 @@ public class Operations {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "delAresta failed: unknown result");
     }
 
-    public boolean upVertice(int nomeUp, Vertice V) throws org.apache.thrift.TException
+    public boolean upVertice(Vertice V, int nomeUp) throws org.apache.thrift.TException
     {
-      send_upVertice(nomeUp, V);
+      send_upVertice(V, nomeUp);
       return recv_upVertice();
     }
 
-    public void send_upVertice(int nomeUp, Vertice V) throws org.apache.thrift.TException
+    public void send_upVertice(Vertice V, int nomeUp) throws org.apache.thrift.TException
     {
       upVertice_args args = new upVertice_args();
-      args.setNomeUp(nomeUp);
       args.setV(V);
+      args.setNomeUp(nomeUp);
       sendBase("upVertice", args);
     }
 
@@ -334,18 +338,18 @@ public class Operations {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "getVertice failed: unknown result");
     }
 
-    public Aresta getAresta(int v1, int v2, boolean flag) throws org.apache.thrift.TException
+    public Aresta getAresta(int v1, int v2, int direcao) throws org.apache.thrift.TException
     {
-      send_getAresta(v1, v2, flag);
+      send_getAresta(v1, v2, direcao);
       return recv_getAresta();
     }
 
-    public void send_getAresta(int v1, int v2, boolean flag) throws org.apache.thrift.TException
+    public void send_getAresta(int v1, int v2, int direcao) throws org.apache.thrift.TException
     {
       getAresta_args args = new getAresta_args();
       args.setV1(v1);
       args.setV2(v2);
-      args.setFlag(flag);
+      args.setDirecao(direcao);
       sendBase("getAresta", args);
     }
 
@@ -381,16 +385,15 @@ public class Operations {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "exibeGrafo failed: unknown result");
     }
 
-    public String exibeVertice(boolean flag) throws org.apache.thrift.TException
+    public String exibeVertice() throws org.apache.thrift.TException
     {
-      send_exibeVertice(flag);
+      send_exibeVertice();
       return recv_exibeVertice();
     }
 
-    public void send_exibeVertice(boolean flag) throws org.apache.thrift.TException
+    public void send_exibeVertice() throws org.apache.thrift.TException
     {
       exibeVertice_args args = new exibeVertice_args();
-      args.setFlag(flag);
       sendBase("exibeVertice", args);
     }
 
@@ -404,16 +407,15 @@ public class Operations {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "exibeVertice failed: unknown result");
     }
 
-    public String exibeAresta(boolean flag) throws org.apache.thrift.TException
+    public String exibeAresta() throws org.apache.thrift.TException
     {
-      send_exibeAresta(flag);
+      send_exibeAresta();
       return recv_exibeAresta();
     }
 
-    public void send_exibeAresta(boolean flag) throws org.apache.thrift.TException
+    public void send_exibeAresta() throws org.apache.thrift.TException
     {
       exibeAresta_args args = new exibeAresta_args();
-      args.setFlag(flag);
       sendBase("exibeAresta", args);
     }
 
@@ -427,17 +429,16 @@ public class Operations {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "exibeAresta failed: unknown result");
     }
 
-    public String listarArestasVertice(int nomeV, boolean flag) throws org.apache.thrift.TException
+    public String listarArestasVertice(int nomeV) throws org.apache.thrift.TException
     {
-      send_listarArestasVertice(nomeV, flag);
+      send_listarArestasVertice(nomeV);
       return recv_listarArestasVertice();
     }
 
-    public void send_listarArestasVertice(int nomeV, boolean flag) throws org.apache.thrift.TException
+    public void send_listarArestasVertice(int nomeV) throws org.apache.thrift.TException
     {
       listarArestasVertice_args args = new listarArestasVertice_args();
       args.setNomeV(nomeV);
-      args.setFlag(flag);
       sendBase("listarArestasVertice", args);
     }
 
@@ -449,6 +450,30 @@ public class Operations {
         return result.success;
       }
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listarArestasVertice failed: unknown result");
+    }
+
+    public String listarVerticeAresta(int v1, int v2) throws org.apache.thrift.TException
+    {
+      send_listarVerticeAresta(v1, v2);
+      return recv_listarVerticeAresta();
+    }
+
+    public void send_listarVerticeAresta(int v1, int v2) throws org.apache.thrift.TException
+    {
+      listarVerticeAresta_args args = new listarVerticeAresta_args();
+      args.setV1(v1);
+      args.setV2(v2);
+      sendBase("listarVerticeAresta", args);
+    }
+
+    public String recv_listarVerticeAresta() throws org.apache.thrift.TException
+    {
+      listarVerticeAresta_result result = new listarVerticeAresta_result();
+      receiveBase(result, "listarVerticeAresta");
+      if (result.isSetSuccess()) {
+        return result.success;
+      }
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listarVerticeAresta failed: unknown result");
     }
 
     public String listarVizinhosVertice(int nomeV) throws org.apache.thrift.TException
@@ -556,9 +581,9 @@ public class Operations {
       }
     }
 
-    public void addVertice(int nome, int cor, String descricao, double peso, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void addVertice(int nome, int cor, double peso, String descricao, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      addVertice_call method_call = new addVertice_call(nome, cor, descricao, peso, resultHandler, this, ___protocolFactory, ___transport);
+      addVertice_call method_call = new addVertice_call(nome, cor, peso, descricao, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
@@ -566,14 +591,14 @@ public class Operations {
     public static class addVertice_call extends org.apache.thrift.async.TAsyncMethodCall {
       private int nome;
       private int cor;
-      private String descricao;
       private double peso;
-      public addVertice_call(int nome, int cor, String descricao, double peso, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      private String descricao;
+      public addVertice_call(int nome, int cor, double peso, String descricao, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.nome = nome;
         this.cor = cor;
-        this.descricao = descricao;
         this.peso = peso;
+        this.descricao = descricao;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
@@ -581,8 +606,8 @@ public class Operations {
         addVertice_args args = new addVertice_args();
         args.setNome(nome);
         args.setCor(cor);
-        args.setDescricao(descricao);
         args.setPeso(peso);
+        args.setDescricao(descricao);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -597,7 +622,7 @@ public class Operations {
       }
     }
 
-    public void addAresta(int v1, int v2, double peso, boolean direcao, String descricao, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void addAresta(int v1, int v2, double peso, int direcao, String descricao, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
       addAresta_call method_call = new addAresta_call(v1, v2, peso, direcao, descricao, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
@@ -608,9 +633,9 @@ public class Operations {
       private int v1;
       private int v2;
       private double peso;
-      private boolean direcao;
+      private int direcao;
       private String descricao;
-      public addAresta_call(int v1, int v2, double peso, boolean direcao, String descricao, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      public addAresta_call(int v1, int v2, double peso, int direcao, String descricao, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.v1 = v1;
         this.v2 = v2;
@@ -708,27 +733,27 @@ public class Operations {
       }
     }
 
-    public void upVertice(int nomeUp, Vertice V, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void upVertice(Vertice V, int nomeUp, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      upVertice_call method_call = new upVertice_call(nomeUp, V, resultHandler, this, ___protocolFactory, ___transport);
+      upVertice_call method_call = new upVertice_call(V, nomeUp, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
     public static class upVertice_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private int nomeUp;
       private Vertice V;
-      public upVertice_call(int nomeUp, Vertice V, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      private int nomeUp;
+      public upVertice_call(Vertice V, int nomeUp, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
-        this.nomeUp = nomeUp;
         this.V = V;
+        this.nomeUp = nomeUp;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("upVertice", org.apache.thrift.protocol.TMessageType.CALL, 0));
         upVertice_args args = new upVertice_args();
-        args.setNomeUp(nomeUp);
         args.setV(V);
+        args.setNomeUp(nomeUp);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -813,9 +838,9 @@ public class Operations {
       }
     }
 
-    public void getAresta(int v1, int v2, boolean flag, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void getAresta(int v1, int v2, int direcao, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      getAresta_call method_call = new getAresta_call(v1, v2, flag, resultHandler, this, ___protocolFactory, ___transport);
+      getAresta_call method_call = new getAresta_call(v1, v2, direcao, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
@@ -823,12 +848,12 @@ public class Operations {
     public static class getAresta_call extends org.apache.thrift.async.TAsyncMethodCall {
       private int v1;
       private int v2;
-      private boolean flag;
-      public getAresta_call(int v1, int v2, boolean flag, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      private int direcao;
+      public getAresta_call(int v1, int v2, int direcao, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.v1 = v1;
         this.v2 = v2;
-        this.flag = flag;
+        this.direcao = direcao;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
@@ -836,7 +861,7 @@ public class Operations {
         getAresta_args args = new getAresta_args();
         args.setV1(v1);
         args.setV2(v2);
-        args.setFlag(flag);
+        args.setDirecao(direcao);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -880,24 +905,21 @@ public class Operations {
       }
     }
 
-    public void exibeVertice(boolean flag, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void exibeVertice(org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      exibeVertice_call method_call = new exibeVertice_call(flag, resultHandler, this, ___protocolFactory, ___transport);
+      exibeVertice_call method_call = new exibeVertice_call(resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
     public static class exibeVertice_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private boolean flag;
-      public exibeVertice_call(boolean flag, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      public exibeVertice_call(org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
-        this.flag = flag;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("exibeVertice", org.apache.thrift.protocol.TMessageType.CALL, 0));
         exibeVertice_args args = new exibeVertice_args();
-        args.setFlag(flag);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -912,24 +934,21 @@ public class Operations {
       }
     }
 
-    public void exibeAresta(boolean flag, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void exibeAresta(org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      exibeAresta_call method_call = new exibeAresta_call(flag, resultHandler, this, ___protocolFactory, ___transport);
+      exibeAresta_call method_call = new exibeAresta_call(resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
     public static class exibeAresta_call extends org.apache.thrift.async.TAsyncMethodCall {
-      private boolean flag;
-      public exibeAresta_call(boolean flag, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      public exibeAresta_call(org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
-        this.flag = flag;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("exibeAresta", org.apache.thrift.protocol.TMessageType.CALL, 0));
         exibeAresta_args args = new exibeAresta_args();
-        args.setFlag(flag);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -944,27 +963,24 @@ public class Operations {
       }
     }
 
-    public void listarArestasVertice(int nomeV, boolean flag, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void listarArestasVertice(int nomeV, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      listarArestasVertice_call method_call = new listarArestasVertice_call(nomeV, flag, resultHandler, this, ___protocolFactory, ___transport);
+      listarArestasVertice_call method_call = new listarArestasVertice_call(nomeV, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
     public static class listarArestasVertice_call extends org.apache.thrift.async.TAsyncMethodCall {
       private int nomeV;
-      private boolean flag;
-      public listarArestasVertice_call(int nomeV, boolean flag, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      public listarArestasVertice_call(int nomeV, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.nomeV = nomeV;
-        this.flag = flag;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
         prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("listarArestasVertice", org.apache.thrift.protocol.TMessageType.CALL, 0));
         listarArestasVertice_args args = new listarArestasVertice_args();
         args.setNomeV(nomeV);
-        args.setFlag(flag);
         args.write(prot);
         prot.writeMessageEnd();
       }
@@ -976,6 +992,41 @@ public class Operations {
         org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
         org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
         return (new Client(prot)).recv_listarArestasVertice();
+      }
+    }
+
+    public void listarVerticeAresta(int v1, int v2, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      listarVerticeAresta_call method_call = new listarVerticeAresta_call(v1, v2, resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class listarVerticeAresta_call extends org.apache.thrift.async.TAsyncMethodCall {
+      private int v1;
+      private int v2;
+      public listarVerticeAresta_call(int v1, int v2, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+        this.v1 = v1;
+        this.v2 = v2;
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("listarVerticeAresta", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        listarVerticeAresta_args args = new listarVerticeAresta_args();
+        args.setV1(v1);
+        args.setV2(v2);
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public String getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        return (new Client(prot)).recv_listarVerticeAresta();
       }
     }
 
@@ -1038,6 +1089,7 @@ public class Operations {
       processMap.put("exibeVertice", new exibeVertice());
       processMap.put("exibeAresta", new exibeAresta());
       processMap.put("listarArestasVertice", new listarArestasVertice());
+      processMap.put("listarVerticeAresta", new listarVerticeAresta());
       processMap.put("listarVizinhosVertice", new listarVizinhosVertice());
       return processMap;
     }
@@ -1097,7 +1149,7 @@ public class Operations {
 
       public addVertice_result getResult(I iface, addVertice_args args) throws org.apache.thrift.TException {
         addVertice_result result = new addVertice_result();
-        result.success = iface.addVertice(args.nome, args.cor, args.descricao, args.peso);
+        result.success = iface.addVertice(args.nome, args.cor, args.peso, args.descricao);
         result.setSuccessIsSet(true);
         return result;
       }
@@ -1181,7 +1233,7 @@ public class Operations {
 
       public upVertice_result getResult(I iface, upVertice_args args) throws org.apache.thrift.TException {
         upVertice_result result = new upVertice_result();
-        result.success = iface.upVertice(args.nomeUp, args.V);
+        result.success = iface.upVertice(args.V, args.nomeUp);
         result.setSuccessIsSet(true);
         return result;
       }
@@ -1243,7 +1295,7 @@ public class Operations {
 
       public getAresta_result getResult(I iface, getAresta_args args) throws org.apache.thrift.TException {
         getAresta_result result = new getAresta_result();
-        result.success = iface.getAresta(args.v1, args.v2, args.flag);
+        result.success = iface.getAresta(args.v1, args.v2, args.direcao);
         return result;
       }
     }
@@ -1283,7 +1335,7 @@ public class Operations {
 
       public exibeVertice_result getResult(I iface, exibeVertice_args args) throws org.apache.thrift.TException {
         exibeVertice_result result = new exibeVertice_result();
-        result.success = iface.exibeVertice(args.flag);
+        result.success = iface.exibeVertice();
         return result;
       }
     }
@@ -1303,7 +1355,7 @@ public class Operations {
 
       public exibeAresta_result getResult(I iface, exibeAresta_args args) throws org.apache.thrift.TException {
         exibeAresta_result result = new exibeAresta_result();
-        result.success = iface.exibeAresta(args.flag);
+        result.success = iface.exibeAresta();
         return result;
       }
     }
@@ -1323,7 +1375,27 @@ public class Operations {
 
       public listarArestasVertice_result getResult(I iface, listarArestasVertice_args args) throws org.apache.thrift.TException {
         listarArestasVertice_result result = new listarArestasVertice_result();
-        result.success = iface.listarArestasVertice(args.nomeV, args.flag);
+        result.success = iface.listarArestasVertice(args.nomeV);
+        return result;
+      }
+    }
+
+    public static class listarVerticeAresta<I extends Iface> extends org.apache.thrift.ProcessFunction<I, listarVerticeAresta_args> {
+      public listarVerticeAresta() {
+        super("listarVerticeAresta");
+      }
+
+      public listarVerticeAresta_args getEmptyArgsInstance() {
+        return new listarVerticeAresta_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public listarVerticeAresta_result getResult(I iface, listarVerticeAresta_args args) throws org.apache.thrift.TException {
+        listarVerticeAresta_result result = new listarVerticeAresta_result();
+        result.success = iface.listarVerticeAresta(args.v1, args.v2);
         return result;
       }
     }
@@ -1375,6 +1447,7 @@ public class Operations {
       processMap.put("exibeVertice", new exibeVertice());
       processMap.put("exibeAresta", new exibeAresta());
       processMap.put("listarArestasVertice", new listarArestasVertice());
+      processMap.put("listarVerticeAresta", new listarVerticeAresta());
       processMap.put("listarVizinhosVertice", new listarVizinhosVertice());
       return processMap;
     }
@@ -1527,7 +1600,7 @@ public class Operations {
       }
 
       public void start(I iface, addVertice_args args, org.apache.thrift.async.AsyncMethodCallback<Boolean> resultHandler) throws TException {
-        iface.addVertice(args.nome, args.cor, args.descricao, args.peso,resultHandler);
+        iface.addVertice(args.nome, args.cor, args.peso, args.descricao,resultHandler);
       }
     }
 
@@ -1735,7 +1808,7 @@ public class Operations {
       }
 
       public void start(I iface, upVertice_args args, org.apache.thrift.async.AsyncMethodCallback<Boolean> resultHandler) throws TException {
-        iface.upVertice(args.nomeUp, args.V,resultHandler);
+        iface.upVertice(args.V, args.nomeUp,resultHandler);
       }
     }
 
@@ -1889,7 +1962,7 @@ public class Operations {
       }
 
       public void start(I iface, getAresta_args args, org.apache.thrift.async.AsyncMethodCallback<Aresta> resultHandler) throws TException {
-        iface.getAresta(args.v1, args.v2, args.flag,resultHandler);
+        iface.getAresta(args.v1, args.v2, args.direcao,resultHandler);
       }
     }
 
@@ -1991,7 +2064,7 @@ public class Operations {
       }
 
       public void start(I iface, exibeVertice_args args, org.apache.thrift.async.AsyncMethodCallback<String> resultHandler) throws TException {
-        iface.exibeVertice(args.flag,resultHandler);
+        iface.exibeVertice(resultHandler);
       }
     }
 
@@ -2042,7 +2115,7 @@ public class Operations {
       }
 
       public void start(I iface, exibeAresta_args args, org.apache.thrift.async.AsyncMethodCallback<String> resultHandler) throws TException {
-        iface.exibeAresta(args.flag,resultHandler);
+        iface.exibeAresta(resultHandler);
       }
     }
 
@@ -2093,7 +2166,58 @@ public class Operations {
       }
 
       public void start(I iface, listarArestasVertice_args args, org.apache.thrift.async.AsyncMethodCallback<String> resultHandler) throws TException {
-        iface.listarArestasVertice(args.nomeV, args.flag,resultHandler);
+        iface.listarArestasVertice(args.nomeV,resultHandler);
+      }
+    }
+
+    public static class listarVerticeAresta<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, listarVerticeAresta_args, String> {
+      public listarVerticeAresta() {
+        super("listarVerticeAresta");
+      }
+
+      public listarVerticeAresta_args getEmptyArgsInstance() {
+        return new listarVerticeAresta_args();
+      }
+
+      public AsyncMethodCallback<String> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new AsyncMethodCallback<String>() { 
+          public void onComplete(String o) {
+            listarVerticeAresta_result result = new listarVerticeAresta_result();
+            result.success = o;
+            try {
+              fcall.sendResponse(fb,result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+              return;
+            } catch (Exception e) {
+              LOGGER.error("Exception writing to internal frame buffer", e);
+            }
+            fb.close();
+          }
+          public void onError(Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TBase msg;
+            listarVerticeAresta_result result = new listarVerticeAresta_result();
+            {
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+              return;
+            } catch (Exception ex) {
+              LOGGER.error("Exception writing to internal frame buffer", ex);
+            }
+            fb.close();
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, listarVerticeAresta_args args, org.apache.thrift.async.AsyncMethodCallback<String> resultHandler) throws TException {
+        iface.listarVerticeAresta(args.v1, args.v2,resultHandler);
       }
     }
 
@@ -3355,8 +3479,8 @@ public class Operations {
 
     private static final org.apache.thrift.protocol.TField NOME_FIELD_DESC = new org.apache.thrift.protocol.TField("nome", org.apache.thrift.protocol.TType.I32, (short)1);
     private static final org.apache.thrift.protocol.TField COR_FIELD_DESC = new org.apache.thrift.protocol.TField("cor", org.apache.thrift.protocol.TType.I32, (short)2);
-    private static final org.apache.thrift.protocol.TField DESCRICAO_FIELD_DESC = new org.apache.thrift.protocol.TField("descricao", org.apache.thrift.protocol.TType.STRING, (short)3);
-    private static final org.apache.thrift.protocol.TField PESO_FIELD_DESC = new org.apache.thrift.protocol.TField("peso", org.apache.thrift.protocol.TType.DOUBLE, (short)4);
+    private static final org.apache.thrift.protocol.TField PESO_FIELD_DESC = new org.apache.thrift.protocol.TField("peso", org.apache.thrift.protocol.TType.DOUBLE, (short)3);
+    private static final org.apache.thrift.protocol.TField DESCRICAO_FIELD_DESC = new org.apache.thrift.protocol.TField("descricao", org.apache.thrift.protocol.TType.STRING, (short)4);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -3366,15 +3490,15 @@ public class Operations {
 
     public int nome; // required
     public int cor; // required
-    public String descricao; // required
     public double peso; // required
+    public String descricao; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
       NOME((short)1, "nome"),
       COR((short)2, "cor"),
-      DESCRICAO((short)3, "descricao"),
-      PESO((short)4, "peso");
+      PESO((short)3, "peso"),
+      DESCRICAO((short)4, "descricao");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -3393,10 +3517,10 @@ public class Operations {
             return NOME;
           case 2: // COR
             return COR;
-          case 3: // DESCRICAO
-            return DESCRICAO;
-          case 4: // PESO
+          case 3: // PESO
             return PESO;
+          case 4: // DESCRICAO
+            return DESCRICAO;
           default:
             return null;
         }
@@ -3448,10 +3572,10 @@ public class Operations {
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
       tmpMap.put(_Fields.COR, new org.apache.thrift.meta_data.FieldMetaData("cor", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
-      tmpMap.put(_Fields.DESCRICAO, new org.apache.thrift.meta_data.FieldMetaData("descricao", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
       tmpMap.put(_Fields.PESO, new org.apache.thrift.meta_data.FieldMetaData("peso", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+      tmpMap.put(_Fields.DESCRICAO, new org.apache.thrift.meta_data.FieldMetaData("descricao", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(addVertice_args.class, metaDataMap);
     }
@@ -3462,17 +3586,17 @@ public class Operations {
     public addVertice_args(
       int nome,
       int cor,
-      String descricao,
-      double peso)
+      double peso,
+      String descricao)
     {
       this();
       this.nome = nome;
       setNomeIsSet(true);
       this.cor = cor;
       setCorIsSet(true);
-      this.descricao = descricao;
       this.peso = peso;
       setPesoIsSet(true);
+      this.descricao = descricao;
     }
 
     /**
@@ -3482,10 +3606,10 @@ public class Operations {
       __isset_bitfield = other.__isset_bitfield;
       this.nome = other.nome;
       this.cor = other.cor;
+      this.peso = other.peso;
       if (other.isSetDescricao()) {
         this.descricao = other.descricao;
       }
-      this.peso = other.peso;
     }
 
     public addVertice_args deepCopy() {
@@ -3498,9 +3622,9 @@ public class Operations {
       this.nome = 0;
       setCorIsSet(false);
       this.cor = 0;
-      this.descricao = null;
       setPesoIsSet(false);
       this.peso = 0.0;
+      this.descricao = null;
     }
 
     public int getNome() {
@@ -3549,6 +3673,29 @@ public class Operations {
       __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __COR_ISSET_ID, value);
     }
 
+    public double getPeso() {
+      return this.peso;
+    }
+
+    public addVertice_args setPeso(double peso) {
+      this.peso = peso;
+      setPesoIsSet(true);
+      return this;
+    }
+
+    public void unsetPeso() {
+      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __PESO_ISSET_ID);
+    }
+
+    /** Returns true if field peso is set (has been assigned a value) and false otherwise */
+    public boolean isSetPeso() {
+      return EncodingUtils.testBit(__isset_bitfield, __PESO_ISSET_ID);
+    }
+
+    public void setPesoIsSet(boolean value) {
+      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __PESO_ISSET_ID, value);
+    }
+
     public String getDescricao() {
       return this.descricao;
     }
@@ -3573,29 +3720,6 @@ public class Operations {
       }
     }
 
-    public double getPeso() {
-      return this.peso;
-    }
-
-    public addVertice_args setPeso(double peso) {
-      this.peso = peso;
-      setPesoIsSet(true);
-      return this;
-    }
-
-    public void unsetPeso() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __PESO_ISSET_ID);
-    }
-
-    /** Returns true if field peso is set (has been assigned a value) and false otherwise */
-    public boolean isSetPeso() {
-      return EncodingUtils.testBit(__isset_bitfield, __PESO_ISSET_ID);
-    }
-
-    public void setPesoIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __PESO_ISSET_ID, value);
-    }
-
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
       case NOME:
@@ -3614,19 +3738,19 @@ public class Operations {
         }
         break;
 
-      case DESCRICAO:
-        if (value == null) {
-          unsetDescricao();
-        } else {
-          setDescricao((String)value);
-        }
-        break;
-
       case PESO:
         if (value == null) {
           unsetPeso();
         } else {
           setPeso((Double)value);
+        }
+        break;
+
+      case DESCRICAO:
+        if (value == null) {
+          unsetDescricao();
+        } else {
+          setDescricao((String)value);
         }
         break;
 
@@ -3641,11 +3765,11 @@ public class Operations {
       case COR:
         return Integer.valueOf(getCor());
 
-      case DESCRICAO:
-        return getDescricao();
-
       case PESO:
         return Double.valueOf(getPeso());
+
+      case DESCRICAO:
+        return getDescricao();
 
       }
       throw new IllegalStateException();
@@ -3662,10 +3786,10 @@ public class Operations {
         return isSetNome();
       case COR:
         return isSetCor();
-      case DESCRICAO:
-        return isSetDescricao();
       case PESO:
         return isSetPeso();
+      case DESCRICAO:
+        return isSetDescricao();
       }
       throw new IllegalStateException();
     }
@@ -3701,21 +3825,21 @@ public class Operations {
           return false;
       }
 
-      boolean this_present_descricao = true && this.isSetDescricao();
-      boolean that_present_descricao = true && that.isSetDescricao();
-      if (this_present_descricao || that_present_descricao) {
-        if (!(this_present_descricao && that_present_descricao))
-          return false;
-        if (!this.descricao.equals(that.descricao))
-          return false;
-      }
-
       boolean this_present_peso = true;
       boolean that_present_peso = true;
       if (this_present_peso || that_present_peso) {
         if (!(this_present_peso && that_present_peso))
           return false;
         if (this.peso != that.peso)
+          return false;
+      }
+
+      boolean this_present_descricao = true && this.isSetDescricao();
+      boolean that_present_descricao = true && that.isSetDescricao();
+      if (this_present_descricao || that_present_descricao) {
+        if (!(this_present_descricao && that_present_descricao))
+          return false;
+        if (!this.descricao.equals(that.descricao))
           return false;
       }
 
@@ -3755,22 +3879,22 @@ public class Operations {
           return lastComparison;
         }
       }
-      lastComparison = Boolean.valueOf(isSetDescricao()).compareTo(other.isSetDescricao());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetDescricao()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.descricao, other.descricao);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
       lastComparison = Boolean.valueOf(isSetPeso()).compareTo(other.isSetPeso());
       if (lastComparison != 0) {
         return lastComparison;
       }
       if (isSetPeso()) {
         lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.peso, other.peso);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetDescricao()).compareTo(other.isSetDescricao());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetDescricao()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.descricao, other.descricao);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -3803,16 +3927,16 @@ public class Operations {
       sb.append(this.cor);
       first = false;
       if (!first) sb.append(", ");
+      sb.append("peso:");
+      sb.append(this.peso);
+      first = false;
+      if (!first) sb.append(", ");
       sb.append("descricao:");
       if (this.descricao == null) {
         sb.append("null");
       } else {
         sb.append(this.descricao);
       }
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("peso:");
-      sb.append(this.peso);
       first = false;
       sb.append(")");
       return sb.toString();
@@ -3875,18 +3999,18 @@ public class Operations {
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
               break;
-            case 3: // DESCRICAO
-              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-                struct.descricao = iprot.readString();
-                struct.setDescricaoIsSet(true);
+            case 3: // PESO
+              if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
+                struct.peso = iprot.readDouble();
+                struct.setPesoIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
               break;
-            case 4: // PESO
-              if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
-                struct.peso = iprot.readDouble();
-                struct.setPesoIsSet(true);
+            case 4: // DESCRICAO
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.descricao = iprot.readString();
+                struct.setDescricaoIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
@@ -3912,14 +4036,14 @@ public class Operations {
         oprot.writeFieldBegin(COR_FIELD_DESC);
         oprot.writeI32(struct.cor);
         oprot.writeFieldEnd();
+        oprot.writeFieldBegin(PESO_FIELD_DESC);
+        oprot.writeDouble(struct.peso);
+        oprot.writeFieldEnd();
         if (struct.descricao != null) {
           oprot.writeFieldBegin(DESCRICAO_FIELD_DESC);
           oprot.writeString(struct.descricao);
           oprot.writeFieldEnd();
         }
-        oprot.writeFieldBegin(PESO_FIELD_DESC);
-        oprot.writeDouble(struct.peso);
-        oprot.writeFieldEnd();
         oprot.writeFieldStop();
         oprot.writeStructEnd();
       }
@@ -3944,10 +4068,10 @@ public class Operations {
         if (struct.isSetCor()) {
           optionals.set(1);
         }
-        if (struct.isSetDescricao()) {
+        if (struct.isSetPeso()) {
           optionals.set(2);
         }
-        if (struct.isSetPeso()) {
+        if (struct.isSetDescricao()) {
           optionals.set(3);
         }
         oprot.writeBitSet(optionals, 4);
@@ -3957,11 +4081,11 @@ public class Operations {
         if (struct.isSetCor()) {
           oprot.writeI32(struct.cor);
         }
-        if (struct.isSetDescricao()) {
-          oprot.writeString(struct.descricao);
-        }
         if (struct.isSetPeso()) {
           oprot.writeDouble(struct.peso);
+        }
+        if (struct.isSetDescricao()) {
+          oprot.writeString(struct.descricao);
         }
       }
 
@@ -3978,12 +4102,12 @@ public class Operations {
           struct.setCorIsSet(true);
         }
         if (incoming.get(2)) {
-          struct.descricao = iprot.readString();
-          struct.setDescricaoIsSet(true);
-        }
-        if (incoming.get(3)) {
           struct.peso = iprot.readDouble();
           struct.setPesoIsSet(true);
+        }
+        if (incoming.get(3)) {
+          struct.descricao = iprot.readString();
+          struct.setDescricaoIsSet(true);
         }
       }
     }
@@ -4350,7 +4474,7 @@ public class Operations {
     private static final org.apache.thrift.protocol.TField V1_FIELD_DESC = new org.apache.thrift.protocol.TField("v1", org.apache.thrift.protocol.TType.I32, (short)1);
     private static final org.apache.thrift.protocol.TField V2_FIELD_DESC = new org.apache.thrift.protocol.TField("v2", org.apache.thrift.protocol.TType.I32, (short)2);
     private static final org.apache.thrift.protocol.TField PESO_FIELD_DESC = new org.apache.thrift.protocol.TField("peso", org.apache.thrift.protocol.TType.DOUBLE, (short)3);
-    private static final org.apache.thrift.protocol.TField DIRECAO_FIELD_DESC = new org.apache.thrift.protocol.TField("direcao", org.apache.thrift.protocol.TType.BOOL, (short)4);
+    private static final org.apache.thrift.protocol.TField DIRECAO_FIELD_DESC = new org.apache.thrift.protocol.TField("direcao", org.apache.thrift.protocol.TType.I32, (short)4);
     private static final org.apache.thrift.protocol.TField DESCRICAO_FIELD_DESC = new org.apache.thrift.protocol.TField("descricao", org.apache.thrift.protocol.TType.STRING, (short)5);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
@@ -4362,7 +4486,7 @@ public class Operations {
     public int v1; // required
     public int v2; // required
     public double peso; // required
-    public boolean direcao; // required
+    public int direcao; // required
     public String descricao; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
@@ -4451,7 +4575,7 @@ public class Operations {
       tmpMap.put(_Fields.PESO, new org.apache.thrift.meta_data.FieldMetaData("peso", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
       tmpMap.put(_Fields.DIRECAO, new org.apache.thrift.meta_data.FieldMetaData("direcao", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BOOL)));
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
       tmpMap.put(_Fields.DESCRICAO, new org.apache.thrift.meta_data.FieldMetaData("descricao", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
@@ -4465,7 +4589,7 @@ public class Operations {
       int v1,
       int v2,
       double peso,
-      boolean direcao,
+      int direcao,
       String descricao)
     {
       this();
@@ -4507,7 +4631,7 @@ public class Operations {
       setPesoIsSet(false);
       this.peso = 0.0;
       setDirecaoIsSet(false);
-      this.direcao = false;
+      this.direcao = 0;
       this.descricao = null;
     }
 
@@ -4580,11 +4704,11 @@ public class Operations {
       __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __PESO_ISSET_ID, value);
     }
 
-    public boolean isDirecao() {
+    public int getDirecao() {
       return this.direcao;
     }
 
-    public addAresta_args setDirecao(boolean direcao) {
+    public addAresta_args setDirecao(int direcao) {
       this.direcao = direcao;
       setDirecaoIsSet(true);
       return this;
@@ -4657,7 +4781,7 @@ public class Operations {
         if (value == null) {
           unsetDirecao();
         } else {
-          setDirecao((Boolean)value);
+          setDirecao((Integer)value);
         }
         break;
 
@@ -4684,7 +4808,7 @@ public class Operations {
         return Double.valueOf(getPeso());
 
       case DIRECAO:
-        return Boolean.valueOf(isDirecao());
+        return Integer.valueOf(getDirecao());
 
       case DESCRICAO:
         return getDescricao();
@@ -4951,8 +5075,8 @@ public class Operations {
               }
               break;
             case 4: // DIRECAO
-              if (schemeField.type == org.apache.thrift.protocol.TType.BOOL) {
-                struct.direcao = iprot.readBool();
+              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                struct.direcao = iprot.readI32();
                 struct.setDirecaoIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -4991,7 +5115,7 @@ public class Operations {
         oprot.writeDouble(struct.peso);
         oprot.writeFieldEnd();
         oprot.writeFieldBegin(DIRECAO_FIELD_DESC);
-        oprot.writeBool(struct.direcao);
+        oprot.writeI32(struct.direcao);
         oprot.writeFieldEnd();
         if (struct.descricao != null) {
           oprot.writeFieldBegin(DESCRICAO_FIELD_DESC);
@@ -5042,7 +5166,7 @@ public class Operations {
           oprot.writeDouble(struct.peso);
         }
         if (struct.isSetDirecao()) {
-          oprot.writeBool(struct.direcao);
+          oprot.writeI32(struct.direcao);
         }
         if (struct.isSetDescricao()) {
           oprot.writeString(struct.descricao);
@@ -5066,7 +5190,7 @@ public class Operations {
           struct.setPesoIsSet(true);
         }
         if (incoming.get(3)) {
-          struct.direcao = iprot.readBool();
+          struct.direcao = iprot.readI32();
           struct.setDirecaoIsSet(true);
         }
         if (incoming.get(4)) {
@@ -6941,8 +7065,8 @@ public class Operations {
   public static class upVertice_args implements org.apache.thrift.TBase<upVertice_args, upVertice_args._Fields>, java.io.Serializable, Cloneable, Comparable<upVertice_args>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("upVertice_args");
 
-    private static final org.apache.thrift.protocol.TField NOME_UP_FIELD_DESC = new org.apache.thrift.protocol.TField("nomeUp", org.apache.thrift.protocol.TType.I32, (short)1);
-    private static final org.apache.thrift.protocol.TField V_FIELD_DESC = new org.apache.thrift.protocol.TField("V", org.apache.thrift.protocol.TType.STRUCT, (short)2);
+    private static final org.apache.thrift.protocol.TField V_FIELD_DESC = new org.apache.thrift.protocol.TField("V", org.apache.thrift.protocol.TType.STRUCT, (short)1);
+    private static final org.apache.thrift.protocol.TField NOME_UP_FIELD_DESC = new org.apache.thrift.protocol.TField("nomeUp", org.apache.thrift.protocol.TType.I32, (short)2);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -6950,13 +7074,13 @@ public class Operations {
       schemes.put(TupleScheme.class, new upVertice_argsTupleSchemeFactory());
     }
 
-    public int nomeUp; // required
     public Vertice V; // required
+    public int nomeUp; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      NOME_UP((short)1, "nomeUp"),
-      V((short)2, "V");
+      V((short)1, "V"),
+      NOME_UP((short)2, "nomeUp");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -6971,10 +7095,10 @@ public class Operations {
        */
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
-          case 1: // NOME_UP
-            return NOME_UP;
-          case 2: // V
+          case 1: // V
             return V;
+          case 2: // NOME_UP
+            return NOME_UP;
           default:
             return null;
         }
@@ -7020,10 +7144,10 @@ public class Operations {
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.NOME_UP, new org.apache.thrift.meta_data.FieldMetaData("nomeUp", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
       tmpMap.put(_Fields.V, new org.apache.thrift.meta_data.FieldMetaData("V", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, Vertice.class)));
+      tmpMap.put(_Fields.NOME_UP, new org.apache.thrift.meta_data.FieldMetaData("nomeUp", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(upVertice_args.class, metaDataMap);
     }
@@ -7032,13 +7156,13 @@ public class Operations {
     }
 
     public upVertice_args(
-      int nomeUp,
-      Vertice V)
+      Vertice V,
+      int nomeUp)
     {
       this();
+      this.V = V;
       this.nomeUp = nomeUp;
       setNomeUpIsSet(true);
-      this.V = V;
     }
 
     /**
@@ -7046,10 +7170,10 @@ public class Operations {
      */
     public upVertice_args(upVertice_args other) {
       __isset_bitfield = other.__isset_bitfield;
-      this.nomeUp = other.nomeUp;
       if (other.isSetV()) {
         this.V = new Vertice(other.V);
       }
+      this.nomeUp = other.nomeUp;
     }
 
     public upVertice_args deepCopy() {
@@ -7058,32 +7182,9 @@ public class Operations {
 
     @Override
     public void clear() {
+      this.V = null;
       setNomeUpIsSet(false);
       this.nomeUp = 0;
-      this.V = null;
-    }
-
-    public int getNomeUp() {
-      return this.nomeUp;
-    }
-
-    public upVertice_args setNomeUp(int nomeUp) {
-      this.nomeUp = nomeUp;
-      setNomeUpIsSet(true);
-      return this;
-    }
-
-    public void unsetNomeUp() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __NOMEUP_ISSET_ID);
-    }
-
-    /** Returns true if field nomeUp is set (has been assigned a value) and false otherwise */
-    public boolean isSetNomeUp() {
-      return EncodingUtils.testBit(__isset_bitfield, __NOMEUP_ISSET_ID);
-    }
-
-    public void setNomeUpIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __NOMEUP_ISSET_ID, value);
     }
 
     public Vertice getV() {
@@ -7110,16 +7211,31 @@ public class Operations {
       }
     }
 
+    public int getNomeUp() {
+      return this.nomeUp;
+    }
+
+    public upVertice_args setNomeUp(int nomeUp) {
+      this.nomeUp = nomeUp;
+      setNomeUpIsSet(true);
+      return this;
+    }
+
+    public void unsetNomeUp() {
+      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __NOMEUP_ISSET_ID);
+    }
+
+    /** Returns true if field nomeUp is set (has been assigned a value) and false otherwise */
+    public boolean isSetNomeUp() {
+      return EncodingUtils.testBit(__isset_bitfield, __NOMEUP_ISSET_ID);
+    }
+
+    public void setNomeUpIsSet(boolean value) {
+      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __NOMEUP_ISSET_ID, value);
+    }
+
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
-      case NOME_UP:
-        if (value == null) {
-          unsetNomeUp();
-        } else {
-          setNomeUp((Integer)value);
-        }
-        break;
-
       case V:
         if (value == null) {
           unsetV();
@@ -7128,16 +7244,24 @@ public class Operations {
         }
         break;
 
+      case NOME_UP:
+        if (value == null) {
+          unsetNomeUp();
+        } else {
+          setNomeUp((Integer)value);
+        }
+        break;
+
       }
     }
 
     public Object getFieldValue(_Fields field) {
       switch (field) {
-      case NOME_UP:
-        return Integer.valueOf(getNomeUp());
-
       case V:
         return getV();
+
+      case NOME_UP:
+        return Integer.valueOf(getNomeUp());
 
       }
       throw new IllegalStateException();
@@ -7150,10 +7274,10 @@ public class Operations {
       }
 
       switch (field) {
-      case NOME_UP:
-        return isSetNomeUp();
       case V:
         return isSetV();
+      case NOME_UP:
+        return isSetNomeUp();
       }
       throw new IllegalStateException();
     }
@@ -7171,21 +7295,21 @@ public class Operations {
       if (that == null)
         return false;
 
-      boolean this_present_nomeUp = true;
-      boolean that_present_nomeUp = true;
-      if (this_present_nomeUp || that_present_nomeUp) {
-        if (!(this_present_nomeUp && that_present_nomeUp))
-          return false;
-        if (this.nomeUp != that.nomeUp)
-          return false;
-      }
-
       boolean this_present_V = true && this.isSetV();
       boolean that_present_V = true && that.isSetV();
       if (this_present_V || that_present_V) {
         if (!(this_present_V && that_present_V))
           return false;
         if (!this.V.equals(that.V))
+          return false;
+      }
+
+      boolean this_present_nomeUp = true;
+      boolean that_present_nomeUp = true;
+      if (this_present_nomeUp || that_present_nomeUp) {
+        if (!(this_present_nomeUp && that_present_nomeUp))
+          return false;
+        if (this.nomeUp != that.nomeUp)
           return false;
       }
 
@@ -7205,22 +7329,22 @@ public class Operations {
 
       int lastComparison = 0;
 
-      lastComparison = Boolean.valueOf(isSetNomeUp()).compareTo(other.isSetNomeUp());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetNomeUp()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.nomeUp, other.nomeUp);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
       lastComparison = Boolean.valueOf(isSetV()).compareTo(other.isSetV());
       if (lastComparison != 0) {
         return lastComparison;
       }
       if (isSetV()) {
         lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.V, other.V);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetNomeUp()).compareTo(other.isSetNomeUp());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetNomeUp()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.nomeUp, other.nomeUp);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -7245,16 +7369,16 @@ public class Operations {
       StringBuilder sb = new StringBuilder("upVertice_args(");
       boolean first = true;
 
-      sb.append("nomeUp:");
-      sb.append(this.nomeUp);
-      first = false;
-      if (!first) sb.append(", ");
       sb.append("V:");
       if (this.V == null) {
         sb.append("null");
       } else {
         sb.append(this.V);
       }
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("nomeUp:");
+      sb.append(this.nomeUp);
       first = false;
       sb.append(")");
       return sb.toString();
@@ -7304,19 +7428,19 @@ public class Operations {
             break;
           }
           switch (schemeField.id) {
-            case 1: // NOME_UP
-              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-                struct.nomeUp = iprot.readI32();
-                struct.setNomeUpIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
-            case 2: // V
+            case 1: // V
               if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
                 struct.V = new Vertice();
                 struct.V.read(iprot);
                 struct.setVIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 2: // NOME_UP
+              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                struct.nomeUp = iprot.readI32();
+                struct.setNomeUpIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
@@ -7336,14 +7460,14 @@ public class Operations {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
-        oprot.writeFieldBegin(NOME_UP_FIELD_DESC);
-        oprot.writeI32(struct.nomeUp);
-        oprot.writeFieldEnd();
         if (struct.V != null) {
           oprot.writeFieldBegin(V_FIELD_DESC);
           struct.V.write(oprot);
           oprot.writeFieldEnd();
         }
+        oprot.writeFieldBegin(NOME_UP_FIELD_DESC);
+        oprot.writeI32(struct.nomeUp);
+        oprot.writeFieldEnd();
         oprot.writeFieldStop();
         oprot.writeStructEnd();
       }
@@ -7362,18 +7486,18 @@ public class Operations {
       public void write(org.apache.thrift.protocol.TProtocol prot, upVertice_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
-        if (struct.isSetNomeUp()) {
+        if (struct.isSetV()) {
           optionals.set(0);
         }
-        if (struct.isSetV()) {
+        if (struct.isSetNomeUp()) {
           optionals.set(1);
         }
         oprot.writeBitSet(optionals, 2);
-        if (struct.isSetNomeUp()) {
-          oprot.writeI32(struct.nomeUp);
-        }
         if (struct.isSetV()) {
           struct.V.write(oprot);
+        }
+        if (struct.isSetNomeUp()) {
+          oprot.writeI32(struct.nomeUp);
         }
       }
 
@@ -7382,13 +7506,13 @@ public class Operations {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(2);
         if (incoming.get(0)) {
-          struct.nomeUp = iprot.readI32();
-          struct.setNomeUpIsSet(true);
-        }
-        if (incoming.get(1)) {
           struct.V = new Vertice();
           struct.V.read(iprot);
           struct.setVIsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.nomeUp = iprot.readI32();
+          struct.setNomeUpIsSet(true);
         }
       }
     }
@@ -9370,7 +9494,7 @@ public class Operations {
 
     private static final org.apache.thrift.protocol.TField V1_FIELD_DESC = new org.apache.thrift.protocol.TField("v1", org.apache.thrift.protocol.TType.I32, (short)1);
     private static final org.apache.thrift.protocol.TField V2_FIELD_DESC = new org.apache.thrift.protocol.TField("v2", org.apache.thrift.protocol.TType.I32, (short)2);
-    private static final org.apache.thrift.protocol.TField FLAG_FIELD_DESC = new org.apache.thrift.protocol.TField("flag", org.apache.thrift.protocol.TType.BOOL, (short)3);
+    private static final org.apache.thrift.protocol.TField DIRECAO_FIELD_DESC = new org.apache.thrift.protocol.TField("direcao", org.apache.thrift.protocol.TType.I32, (short)3);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -9380,13 +9504,13 @@ public class Operations {
 
     public int v1; // required
     public int v2; // required
-    public boolean flag; // required
+    public int direcao; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
       V1((short)1, "v1"),
       V2((short)2, "v2"),
-      FLAG((short)3, "flag");
+      DIRECAO((short)3, "direcao");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -9405,8 +9529,8 @@ public class Operations {
             return V1;
           case 2: // V2
             return V2;
-          case 3: // FLAG
-            return FLAG;
+          case 3: // DIRECAO
+            return DIRECAO;
           default:
             return null;
         }
@@ -9449,7 +9573,7 @@ public class Operations {
     // isset id assignments
     private static final int __V1_ISSET_ID = 0;
     private static final int __V2_ISSET_ID = 1;
-    private static final int __FLAG_ISSET_ID = 2;
+    private static final int __DIRECAO_ISSET_ID = 2;
     private byte __isset_bitfield = 0;
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
@@ -9458,8 +9582,8 @@ public class Operations {
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
       tmpMap.put(_Fields.V2, new org.apache.thrift.meta_data.FieldMetaData("v2", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
-      tmpMap.put(_Fields.FLAG, new org.apache.thrift.meta_data.FieldMetaData("flag", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BOOL)));
+      tmpMap.put(_Fields.DIRECAO, new org.apache.thrift.meta_data.FieldMetaData("direcao", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(getAresta_args.class, metaDataMap);
     }
@@ -9470,15 +9594,15 @@ public class Operations {
     public getAresta_args(
       int v1,
       int v2,
-      boolean flag)
+      int direcao)
     {
       this();
       this.v1 = v1;
       setV1IsSet(true);
       this.v2 = v2;
       setV2IsSet(true);
-      this.flag = flag;
-      setFlagIsSet(true);
+      this.direcao = direcao;
+      setDirecaoIsSet(true);
     }
 
     /**
@@ -9488,7 +9612,7 @@ public class Operations {
       __isset_bitfield = other.__isset_bitfield;
       this.v1 = other.v1;
       this.v2 = other.v2;
-      this.flag = other.flag;
+      this.direcao = other.direcao;
     }
 
     public getAresta_args deepCopy() {
@@ -9501,8 +9625,8 @@ public class Operations {
       this.v1 = 0;
       setV2IsSet(false);
       this.v2 = 0;
-      setFlagIsSet(false);
-      this.flag = false;
+      setDirecaoIsSet(false);
+      this.direcao = 0;
     }
 
     public int getV1() {
@@ -9551,27 +9675,27 @@ public class Operations {
       __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __V2_ISSET_ID, value);
     }
 
-    public boolean isFlag() {
-      return this.flag;
+    public int getDirecao() {
+      return this.direcao;
     }
 
-    public getAresta_args setFlag(boolean flag) {
-      this.flag = flag;
-      setFlagIsSet(true);
+    public getAresta_args setDirecao(int direcao) {
+      this.direcao = direcao;
+      setDirecaoIsSet(true);
       return this;
     }
 
-    public void unsetFlag() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __FLAG_ISSET_ID);
+    public void unsetDirecao() {
+      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __DIRECAO_ISSET_ID);
     }
 
-    /** Returns true if field flag is set (has been assigned a value) and false otherwise */
-    public boolean isSetFlag() {
-      return EncodingUtils.testBit(__isset_bitfield, __FLAG_ISSET_ID);
+    /** Returns true if field direcao is set (has been assigned a value) and false otherwise */
+    public boolean isSetDirecao() {
+      return EncodingUtils.testBit(__isset_bitfield, __DIRECAO_ISSET_ID);
     }
 
-    public void setFlagIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __FLAG_ISSET_ID, value);
+    public void setDirecaoIsSet(boolean value) {
+      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __DIRECAO_ISSET_ID, value);
     }
 
     public void setFieldValue(_Fields field, Object value) {
@@ -9592,11 +9716,11 @@ public class Operations {
         }
         break;
 
-      case FLAG:
+      case DIRECAO:
         if (value == null) {
-          unsetFlag();
+          unsetDirecao();
         } else {
-          setFlag((Boolean)value);
+          setDirecao((Integer)value);
         }
         break;
 
@@ -9611,8 +9735,8 @@ public class Operations {
       case V2:
         return Integer.valueOf(getV2());
 
-      case FLAG:
-        return Boolean.valueOf(isFlag());
+      case DIRECAO:
+        return Integer.valueOf(getDirecao());
 
       }
       throw new IllegalStateException();
@@ -9629,8 +9753,8 @@ public class Operations {
         return isSetV1();
       case V2:
         return isSetV2();
-      case FLAG:
-        return isSetFlag();
+      case DIRECAO:
+        return isSetDirecao();
       }
       throw new IllegalStateException();
     }
@@ -9666,12 +9790,12 @@ public class Operations {
           return false;
       }
 
-      boolean this_present_flag = true;
-      boolean that_present_flag = true;
-      if (this_present_flag || that_present_flag) {
-        if (!(this_present_flag && that_present_flag))
+      boolean this_present_direcao = true;
+      boolean that_present_direcao = true;
+      if (this_present_direcao || that_present_direcao) {
+        if (!(this_present_direcao && that_present_direcao))
           return false;
-        if (this.flag != that.flag)
+        if (this.direcao != that.direcao)
           return false;
       }
 
@@ -9711,12 +9835,12 @@ public class Operations {
           return lastComparison;
         }
       }
-      lastComparison = Boolean.valueOf(isSetFlag()).compareTo(other.isSetFlag());
+      lastComparison = Boolean.valueOf(isSetDirecao()).compareTo(other.isSetDirecao());
       if (lastComparison != 0) {
         return lastComparison;
       }
-      if (isSetFlag()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.flag, other.flag);
+      if (isSetDirecao()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.direcao, other.direcao);
         if (lastComparison != 0) {
           return lastComparison;
         }
@@ -9749,8 +9873,8 @@ public class Operations {
       sb.append(this.v2);
       first = false;
       if (!first) sb.append(", ");
-      sb.append("flag:");
-      sb.append(this.flag);
+      sb.append("direcao:");
+      sb.append(this.direcao);
       first = false;
       sb.append(")");
       return sb.toString();
@@ -9813,10 +9937,10 @@ public class Operations {
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
               break;
-            case 3: // FLAG
-              if (schemeField.type == org.apache.thrift.protocol.TType.BOOL) {
-                struct.flag = iprot.readBool();
-                struct.setFlagIsSet(true);
+            case 3: // DIRECAO
+              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                struct.direcao = iprot.readI32();
+                struct.setDirecaoIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
@@ -9842,8 +9966,8 @@ public class Operations {
         oprot.writeFieldBegin(V2_FIELD_DESC);
         oprot.writeI32(struct.v2);
         oprot.writeFieldEnd();
-        oprot.writeFieldBegin(FLAG_FIELD_DESC);
-        oprot.writeBool(struct.flag);
+        oprot.writeFieldBegin(DIRECAO_FIELD_DESC);
+        oprot.writeI32(struct.direcao);
         oprot.writeFieldEnd();
         oprot.writeFieldStop();
         oprot.writeStructEnd();
@@ -9869,7 +9993,7 @@ public class Operations {
         if (struct.isSetV2()) {
           optionals.set(1);
         }
-        if (struct.isSetFlag()) {
+        if (struct.isSetDirecao()) {
           optionals.set(2);
         }
         oprot.writeBitSet(optionals, 3);
@@ -9879,8 +10003,8 @@ public class Operations {
         if (struct.isSetV2()) {
           oprot.writeI32(struct.v2);
         }
-        if (struct.isSetFlag()) {
-          oprot.writeBool(struct.flag);
+        if (struct.isSetDirecao()) {
+          oprot.writeI32(struct.direcao);
         }
       }
 
@@ -9897,8 +10021,8 @@ public class Operations {
           struct.setV2IsSet(true);
         }
         if (incoming.get(2)) {
-          struct.flag = iprot.readBool();
-          struct.setFlagIsSet(true);
+          struct.direcao = iprot.readI32();
+          struct.setDirecaoIsSet(true);
         }
       }
     }
@@ -10867,7 +10991,6 @@ public class Operations {
   public static class exibeVertice_args implements org.apache.thrift.TBase<exibeVertice_args, exibeVertice_args._Fields>, java.io.Serializable, Cloneable, Comparable<exibeVertice_args>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("exibeVertice_args");
 
-    private static final org.apache.thrift.protocol.TField FLAG_FIELD_DESC = new org.apache.thrift.protocol.TField("flag", org.apache.thrift.protocol.TType.BOOL, (short)1);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -10875,11 +10998,10 @@ public class Operations {
       schemes.put(TupleScheme.class, new exibeVertice_argsTupleSchemeFactory());
     }
 
-    public boolean flag; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      FLAG((short)1, "flag");
+;
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -10894,8 +11016,6 @@ public class Operations {
        */
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
-          case 1: // FLAG
-            return FLAG;
           default:
             return null;
         }
@@ -10934,15 +11054,9 @@ public class Operations {
         return _fieldName;
       }
     }
-
-    // isset id assignments
-    private static final int __FLAG_ISSET_ID = 0;
-    private byte __isset_bitfield = 0;
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.FLAG, new org.apache.thrift.meta_data.FieldMetaData("flag", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BOOL)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(exibeVertice_args.class, metaDataMap);
     }
@@ -10950,20 +11064,10 @@ public class Operations {
     public exibeVertice_args() {
     }
 
-    public exibeVertice_args(
-      boolean flag)
-    {
-      this();
-      this.flag = flag;
-      setFlagIsSet(true);
-    }
-
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public exibeVertice_args(exibeVertice_args other) {
-      __isset_bitfield = other.__isset_bitfield;
-      this.flag = other.flag;
     }
 
     public exibeVertice_args deepCopy() {
@@ -10972,51 +11076,15 @@ public class Operations {
 
     @Override
     public void clear() {
-      setFlagIsSet(false);
-      this.flag = false;
-    }
-
-    public boolean isFlag() {
-      return this.flag;
-    }
-
-    public exibeVertice_args setFlag(boolean flag) {
-      this.flag = flag;
-      setFlagIsSet(true);
-      return this;
-    }
-
-    public void unsetFlag() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __FLAG_ISSET_ID);
-    }
-
-    /** Returns true if field flag is set (has been assigned a value) and false otherwise */
-    public boolean isSetFlag() {
-      return EncodingUtils.testBit(__isset_bitfield, __FLAG_ISSET_ID);
-    }
-
-    public void setFlagIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __FLAG_ISSET_ID, value);
     }
 
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
-      case FLAG:
-        if (value == null) {
-          unsetFlag();
-        } else {
-          setFlag((Boolean)value);
-        }
-        break;
-
       }
     }
 
     public Object getFieldValue(_Fields field) {
       switch (field) {
-      case FLAG:
-        return Boolean.valueOf(isFlag());
-
       }
       throw new IllegalStateException();
     }
@@ -11028,8 +11096,6 @@ public class Operations {
       }
 
       switch (field) {
-      case FLAG:
-        return isSetFlag();
       }
       throw new IllegalStateException();
     }
@@ -11047,15 +11113,6 @@ public class Operations {
       if (that == null)
         return false;
 
-      boolean this_present_flag = true;
-      boolean that_present_flag = true;
-      if (this_present_flag || that_present_flag) {
-        if (!(this_present_flag && that_present_flag))
-          return false;
-        if (this.flag != that.flag)
-          return false;
-      }
-
       return true;
     }
 
@@ -11072,16 +11129,6 @@ public class Operations {
 
       int lastComparison = 0;
 
-      lastComparison = Boolean.valueOf(isSetFlag()).compareTo(other.isSetFlag());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetFlag()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.flag, other.flag);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
       return 0;
     }
 
@@ -11102,9 +11149,6 @@ public class Operations {
       StringBuilder sb = new StringBuilder("exibeVertice_args(");
       boolean first = true;
 
-      sb.append("flag:");
-      sb.append(this.flag);
-      first = false;
       sb.append(")");
       return sb.toString();
     }
@@ -11124,8 +11168,6 @@ public class Operations {
 
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
       try {
-        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-        __isset_bitfield = 0;
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
       } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
@@ -11150,14 +11192,6 @@ public class Operations {
             break;
           }
           switch (schemeField.id) {
-            case 1: // FLAG
-              if (schemeField.type == org.apache.thrift.protocol.TType.BOOL) {
-                struct.flag = iprot.readBool();
-                struct.setFlagIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
             default:
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
           }
@@ -11173,9 +11207,6 @@ public class Operations {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
-        oprot.writeFieldBegin(FLAG_FIELD_DESC);
-        oprot.writeBool(struct.flag);
-        oprot.writeFieldEnd();
         oprot.writeFieldStop();
         oprot.writeStructEnd();
       }
@@ -11193,24 +11224,11 @@ public class Operations {
       @Override
       public void write(org.apache.thrift.protocol.TProtocol prot, exibeVertice_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
-        BitSet optionals = new BitSet();
-        if (struct.isSetFlag()) {
-          optionals.set(0);
-        }
-        oprot.writeBitSet(optionals, 1);
-        if (struct.isSetFlag()) {
-          oprot.writeBool(struct.flag);
-        }
       }
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, exibeVertice_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(1);
-        if (incoming.get(0)) {
-          struct.flag = iprot.readBool();
-          struct.setFlagIsSet(true);
-        }
       }
     }
 
@@ -11573,7 +11591,6 @@ public class Operations {
   public static class exibeAresta_args implements org.apache.thrift.TBase<exibeAresta_args, exibeAresta_args._Fields>, java.io.Serializable, Cloneable, Comparable<exibeAresta_args>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("exibeAresta_args");
 
-    private static final org.apache.thrift.protocol.TField FLAG_FIELD_DESC = new org.apache.thrift.protocol.TField("flag", org.apache.thrift.protocol.TType.BOOL, (short)1);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -11581,11 +11598,10 @@ public class Operations {
       schemes.put(TupleScheme.class, new exibeAresta_argsTupleSchemeFactory());
     }
 
-    public boolean flag; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      FLAG((short)1, "flag");
+;
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -11600,8 +11616,6 @@ public class Operations {
        */
       public static _Fields findByThriftId(int fieldId) {
         switch(fieldId) {
-          case 1: // FLAG
-            return FLAG;
           default:
             return null;
         }
@@ -11640,15 +11654,9 @@ public class Operations {
         return _fieldName;
       }
     }
-
-    // isset id assignments
-    private static final int __FLAG_ISSET_ID = 0;
-    private byte __isset_bitfield = 0;
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
-      tmpMap.put(_Fields.FLAG, new org.apache.thrift.meta_data.FieldMetaData("flag", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BOOL)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(exibeAresta_args.class, metaDataMap);
     }
@@ -11656,20 +11664,10 @@ public class Operations {
     public exibeAresta_args() {
     }
 
-    public exibeAresta_args(
-      boolean flag)
-    {
-      this();
-      this.flag = flag;
-      setFlagIsSet(true);
-    }
-
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public exibeAresta_args(exibeAresta_args other) {
-      __isset_bitfield = other.__isset_bitfield;
-      this.flag = other.flag;
     }
 
     public exibeAresta_args deepCopy() {
@@ -11678,51 +11676,15 @@ public class Operations {
 
     @Override
     public void clear() {
-      setFlagIsSet(false);
-      this.flag = false;
-    }
-
-    public boolean isFlag() {
-      return this.flag;
-    }
-
-    public exibeAresta_args setFlag(boolean flag) {
-      this.flag = flag;
-      setFlagIsSet(true);
-      return this;
-    }
-
-    public void unsetFlag() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __FLAG_ISSET_ID);
-    }
-
-    /** Returns true if field flag is set (has been assigned a value) and false otherwise */
-    public boolean isSetFlag() {
-      return EncodingUtils.testBit(__isset_bitfield, __FLAG_ISSET_ID);
-    }
-
-    public void setFlagIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __FLAG_ISSET_ID, value);
     }
 
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
-      case FLAG:
-        if (value == null) {
-          unsetFlag();
-        } else {
-          setFlag((Boolean)value);
-        }
-        break;
-
       }
     }
 
     public Object getFieldValue(_Fields field) {
       switch (field) {
-      case FLAG:
-        return Boolean.valueOf(isFlag());
-
       }
       throw new IllegalStateException();
     }
@@ -11734,8 +11696,6 @@ public class Operations {
       }
 
       switch (field) {
-      case FLAG:
-        return isSetFlag();
       }
       throw new IllegalStateException();
     }
@@ -11753,15 +11713,6 @@ public class Operations {
       if (that == null)
         return false;
 
-      boolean this_present_flag = true;
-      boolean that_present_flag = true;
-      if (this_present_flag || that_present_flag) {
-        if (!(this_present_flag && that_present_flag))
-          return false;
-        if (this.flag != that.flag)
-          return false;
-      }
-
       return true;
     }
 
@@ -11778,16 +11729,6 @@ public class Operations {
 
       int lastComparison = 0;
 
-      lastComparison = Boolean.valueOf(isSetFlag()).compareTo(other.isSetFlag());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetFlag()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.flag, other.flag);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
       return 0;
     }
 
@@ -11808,9 +11749,6 @@ public class Operations {
       StringBuilder sb = new StringBuilder("exibeAresta_args(");
       boolean first = true;
 
-      sb.append("flag:");
-      sb.append(this.flag);
-      first = false;
       sb.append(")");
       return sb.toString();
     }
@@ -11830,8 +11768,6 @@ public class Operations {
 
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
       try {
-        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-        __isset_bitfield = 0;
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
       } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
@@ -11856,14 +11792,6 @@ public class Operations {
             break;
           }
           switch (schemeField.id) {
-            case 1: // FLAG
-              if (schemeField.type == org.apache.thrift.protocol.TType.BOOL) {
-                struct.flag = iprot.readBool();
-                struct.setFlagIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
             default:
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
           }
@@ -11879,9 +11807,6 @@ public class Operations {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
-        oprot.writeFieldBegin(FLAG_FIELD_DESC);
-        oprot.writeBool(struct.flag);
-        oprot.writeFieldEnd();
         oprot.writeFieldStop();
         oprot.writeStructEnd();
       }
@@ -11899,24 +11824,11 @@ public class Operations {
       @Override
       public void write(org.apache.thrift.protocol.TProtocol prot, exibeAresta_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
-        BitSet optionals = new BitSet();
-        if (struct.isSetFlag()) {
-          optionals.set(0);
-        }
-        oprot.writeBitSet(optionals, 1);
-        if (struct.isSetFlag()) {
-          oprot.writeBool(struct.flag);
-        }
       }
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, exibeAresta_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(1);
-        if (incoming.get(0)) {
-          struct.flag = iprot.readBool();
-          struct.setFlagIsSet(true);
-        }
       }
     }
 
@@ -12280,7 +12192,6 @@ public class Operations {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listarArestasVertice_args");
 
     private static final org.apache.thrift.protocol.TField NOME_V_FIELD_DESC = new org.apache.thrift.protocol.TField("nomeV", org.apache.thrift.protocol.TType.I32, (short)1);
-    private static final org.apache.thrift.protocol.TField FLAG_FIELD_DESC = new org.apache.thrift.protocol.TField("flag", org.apache.thrift.protocol.TType.BOOL, (short)2);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
@@ -12289,12 +12200,10 @@ public class Operations {
     }
 
     public int nomeV; // required
-    public boolean flag; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
-      NOME_V((short)1, "nomeV"),
-      FLAG((short)2, "flag");
+      NOME_V((short)1, "nomeV");
 
       private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -12311,8 +12220,6 @@ public class Operations {
         switch(fieldId) {
           case 1: // NOME_V
             return NOME_V;
-          case 2: // FLAG
-            return FLAG;
           default:
             return null;
         }
@@ -12354,15 +12261,12 @@ public class Operations {
 
     // isset id assignments
     private static final int __NOMEV_ISSET_ID = 0;
-    private static final int __FLAG_ISSET_ID = 1;
     private byte __isset_bitfield = 0;
     public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
       tmpMap.put(_Fields.NOME_V, new org.apache.thrift.meta_data.FieldMetaData("nomeV", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
-      tmpMap.put(_Fields.FLAG, new org.apache.thrift.meta_data.FieldMetaData("flag", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BOOL)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listarArestasVertice_args.class, metaDataMap);
     }
@@ -12371,14 +12275,11 @@ public class Operations {
     }
 
     public listarArestasVertice_args(
-      int nomeV,
-      boolean flag)
+      int nomeV)
     {
       this();
       this.nomeV = nomeV;
       setNomeVIsSet(true);
-      this.flag = flag;
-      setFlagIsSet(true);
     }
 
     /**
@@ -12387,7 +12288,6 @@ public class Operations {
     public listarArestasVertice_args(listarArestasVertice_args other) {
       __isset_bitfield = other.__isset_bitfield;
       this.nomeV = other.nomeV;
-      this.flag = other.flag;
     }
 
     public listarArestasVertice_args deepCopy() {
@@ -12398,8 +12298,6 @@ public class Operations {
     public void clear() {
       setNomeVIsSet(false);
       this.nomeV = 0;
-      setFlagIsSet(false);
-      this.flag = false;
     }
 
     public int getNomeV() {
@@ -12425,29 +12323,6 @@ public class Operations {
       __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __NOMEV_ISSET_ID, value);
     }
 
-    public boolean isFlag() {
-      return this.flag;
-    }
-
-    public listarArestasVertice_args setFlag(boolean flag) {
-      this.flag = flag;
-      setFlagIsSet(true);
-      return this;
-    }
-
-    public void unsetFlag() {
-      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __FLAG_ISSET_ID);
-    }
-
-    /** Returns true if field flag is set (has been assigned a value) and false otherwise */
-    public boolean isSetFlag() {
-      return EncodingUtils.testBit(__isset_bitfield, __FLAG_ISSET_ID);
-    }
-
-    public void setFlagIsSet(boolean value) {
-      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __FLAG_ISSET_ID, value);
-    }
-
     public void setFieldValue(_Fields field, Object value) {
       switch (field) {
       case NOME_V:
@@ -12458,14 +12333,6 @@ public class Operations {
         }
         break;
 
-      case FLAG:
-        if (value == null) {
-          unsetFlag();
-        } else {
-          setFlag((Boolean)value);
-        }
-        break;
-
       }
     }
 
@@ -12473,9 +12340,6 @@ public class Operations {
       switch (field) {
       case NOME_V:
         return Integer.valueOf(getNomeV());
-
-      case FLAG:
-        return Boolean.valueOf(isFlag());
 
       }
       throw new IllegalStateException();
@@ -12490,8 +12354,6 @@ public class Operations {
       switch (field) {
       case NOME_V:
         return isSetNomeV();
-      case FLAG:
-        return isSetFlag();
       }
       throw new IllegalStateException();
     }
@@ -12515,15 +12377,6 @@ public class Operations {
         if (!(this_present_nomeV && that_present_nomeV))
           return false;
         if (this.nomeV != that.nomeV)
-          return false;
-      }
-
-      boolean this_present_flag = true;
-      boolean that_present_flag = true;
-      if (this_present_flag || that_present_flag) {
-        if (!(this_present_flag && that_present_flag))
-          return false;
-        if (this.flag != that.flag)
           return false;
       }
 
@@ -12553,16 +12406,6 @@ public class Operations {
           return lastComparison;
         }
       }
-      lastComparison = Boolean.valueOf(isSetFlag()).compareTo(other.isSetFlag());
-      if (lastComparison != 0) {
-        return lastComparison;
-      }
-      if (isSetFlag()) {
-        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.flag, other.flag);
-        if (lastComparison != 0) {
-          return lastComparison;
-        }
-      }
       return 0;
     }
 
@@ -12585,10 +12428,6 @@ public class Operations {
 
       sb.append("nomeV:");
       sb.append(this.nomeV);
-      first = false;
-      if (!first) sb.append(", ");
-      sb.append("flag:");
-      sb.append(this.flag);
       first = false;
       sb.append(")");
       return sb.toString();
@@ -12643,14 +12482,6 @@ public class Operations {
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
               }
               break;
-            case 2: // FLAG
-              if (schemeField.type == org.apache.thrift.protocol.TType.BOOL) {
-                struct.flag = iprot.readBool();
-                struct.setFlagIsSet(true);
-              } else { 
-                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
-              }
-              break;
             default:
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
           }
@@ -12668,9 +12499,6 @@ public class Operations {
         oprot.writeStructBegin(STRUCT_DESC);
         oprot.writeFieldBegin(NOME_V_FIELD_DESC);
         oprot.writeI32(struct.nomeV);
-        oprot.writeFieldEnd();
-        oprot.writeFieldBegin(FLAG_FIELD_DESC);
-        oprot.writeBool(struct.flag);
         oprot.writeFieldEnd();
         oprot.writeFieldStop();
         oprot.writeStructEnd();
@@ -12693,29 +12521,19 @@ public class Operations {
         if (struct.isSetNomeV()) {
           optionals.set(0);
         }
-        if (struct.isSetFlag()) {
-          optionals.set(1);
-        }
-        oprot.writeBitSet(optionals, 2);
+        oprot.writeBitSet(optionals, 1);
         if (struct.isSetNomeV()) {
           oprot.writeI32(struct.nomeV);
-        }
-        if (struct.isSetFlag()) {
-          oprot.writeBool(struct.flag);
         }
       }
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, listarArestasVertice_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
-        BitSet incoming = iprot.readBitSet(2);
+        BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
           struct.nomeV = iprot.readI32();
           struct.setNomeVIsSet(true);
-        }
-        if (incoming.get(1)) {
-          struct.flag = iprot.readBool();
-          struct.setFlagIsSet(true);
         }
       }
     }
@@ -13065,6 +12883,806 @@ public class Operations {
 
       @Override
       public void read(org.apache.thrift.protocol.TProtocol prot, listarArestasVertice_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(1);
+        if (incoming.get(0)) {
+          struct.success = iprot.readString();
+          struct.setSuccessIsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class listarVerticeAresta_args implements org.apache.thrift.TBase<listarVerticeAresta_args, listarVerticeAresta_args._Fields>, java.io.Serializable, Cloneable, Comparable<listarVerticeAresta_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listarVerticeAresta_args");
+
+    private static final org.apache.thrift.protocol.TField V1_FIELD_DESC = new org.apache.thrift.protocol.TField("v1", org.apache.thrift.protocol.TType.I32, (short)1);
+    private static final org.apache.thrift.protocol.TField V2_FIELD_DESC = new org.apache.thrift.protocol.TField("v2", org.apache.thrift.protocol.TType.I32, (short)2);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new listarVerticeAresta_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new listarVerticeAresta_argsTupleSchemeFactory());
+    }
+
+    public int v1; // required
+    public int v2; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      V1((short)1, "v1"),
+      V2((short)2, "v2");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 1: // V1
+            return V1;
+          case 2: // V2
+            return V2;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    private static final int __V1_ISSET_ID = 0;
+    private static final int __V2_ISSET_ID = 1;
+    private byte __isset_bitfield = 0;
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.V1, new org.apache.thrift.meta_data.FieldMetaData("v1", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+      tmpMap.put(_Fields.V2, new org.apache.thrift.meta_data.FieldMetaData("v2", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listarVerticeAresta_args.class, metaDataMap);
+    }
+
+    public listarVerticeAresta_args() {
+    }
+
+    public listarVerticeAresta_args(
+      int v1,
+      int v2)
+    {
+      this();
+      this.v1 = v1;
+      setV1IsSet(true);
+      this.v2 = v2;
+      setV2IsSet(true);
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public listarVerticeAresta_args(listarVerticeAresta_args other) {
+      __isset_bitfield = other.__isset_bitfield;
+      this.v1 = other.v1;
+      this.v2 = other.v2;
+    }
+
+    public listarVerticeAresta_args deepCopy() {
+      return new listarVerticeAresta_args(this);
+    }
+
+    @Override
+    public void clear() {
+      setV1IsSet(false);
+      this.v1 = 0;
+      setV2IsSet(false);
+      this.v2 = 0;
+    }
+
+    public int getV1() {
+      return this.v1;
+    }
+
+    public listarVerticeAresta_args setV1(int v1) {
+      this.v1 = v1;
+      setV1IsSet(true);
+      return this;
+    }
+
+    public void unsetV1() {
+      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __V1_ISSET_ID);
+    }
+
+    /** Returns true if field v1 is set (has been assigned a value) and false otherwise */
+    public boolean isSetV1() {
+      return EncodingUtils.testBit(__isset_bitfield, __V1_ISSET_ID);
+    }
+
+    public void setV1IsSet(boolean value) {
+      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __V1_ISSET_ID, value);
+    }
+
+    public int getV2() {
+      return this.v2;
+    }
+
+    public listarVerticeAresta_args setV2(int v2) {
+      this.v2 = v2;
+      setV2IsSet(true);
+      return this;
+    }
+
+    public void unsetV2() {
+      __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __V2_ISSET_ID);
+    }
+
+    /** Returns true if field v2 is set (has been assigned a value) and false otherwise */
+    public boolean isSetV2() {
+      return EncodingUtils.testBit(__isset_bitfield, __V2_ISSET_ID);
+    }
+
+    public void setV2IsSet(boolean value) {
+      __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __V2_ISSET_ID, value);
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case V1:
+        if (value == null) {
+          unsetV1();
+        } else {
+          setV1((Integer)value);
+        }
+        break;
+
+      case V2:
+        if (value == null) {
+          unsetV2();
+        } else {
+          setV2((Integer)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case V1:
+        return Integer.valueOf(getV1());
+
+      case V2:
+        return Integer.valueOf(getV2());
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case V1:
+        return isSetV1();
+      case V2:
+        return isSetV2();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof listarVerticeAresta_args)
+        return this.equals((listarVerticeAresta_args)that);
+      return false;
+    }
+
+    public boolean equals(listarVerticeAresta_args that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_v1 = true;
+      boolean that_present_v1 = true;
+      if (this_present_v1 || that_present_v1) {
+        if (!(this_present_v1 && that_present_v1))
+          return false;
+        if (this.v1 != that.v1)
+          return false;
+      }
+
+      boolean this_present_v2 = true;
+      boolean that_present_v2 = true;
+      if (this_present_v2 || that_present_v2) {
+        if (!(this_present_v2 && that_present_v2))
+          return false;
+        if (this.v2 != that.v2)
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(listarVerticeAresta_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetV1()).compareTo(other.isSetV1());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetV1()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.v1, other.v1);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      lastComparison = Boolean.valueOf(isSetV2()).compareTo(other.isSetV2());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetV2()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.v2, other.v2);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("listarVerticeAresta_args(");
+      boolean first = true;
+
+      sb.append("v1:");
+      sb.append(this.v1);
+      first = false;
+      if (!first) sb.append(", ");
+      sb.append("v2:");
+      sb.append(this.v2);
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+        __isset_bitfield = 0;
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class listarVerticeAresta_argsStandardSchemeFactory implements SchemeFactory {
+      public listarVerticeAresta_argsStandardScheme getScheme() {
+        return new listarVerticeAresta_argsStandardScheme();
+      }
+    }
+
+    private static class listarVerticeAresta_argsStandardScheme extends StandardScheme<listarVerticeAresta_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, listarVerticeAresta_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 1: // V1
+              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                struct.v1 = iprot.readI32();
+                struct.setV1IsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            case 2: // V2
+              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+                struct.v2 = iprot.readI32();
+                struct.setV2IsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, listarVerticeAresta_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        oprot.writeFieldBegin(V1_FIELD_DESC);
+        oprot.writeI32(struct.v1);
+        oprot.writeFieldEnd();
+        oprot.writeFieldBegin(V2_FIELD_DESC);
+        oprot.writeI32(struct.v2);
+        oprot.writeFieldEnd();
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class listarVerticeAresta_argsTupleSchemeFactory implements SchemeFactory {
+      public listarVerticeAresta_argsTupleScheme getScheme() {
+        return new listarVerticeAresta_argsTupleScheme();
+      }
+    }
+
+    private static class listarVerticeAresta_argsTupleScheme extends TupleScheme<listarVerticeAresta_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, listarVerticeAresta_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetV1()) {
+          optionals.set(0);
+        }
+        if (struct.isSetV2()) {
+          optionals.set(1);
+        }
+        oprot.writeBitSet(optionals, 2);
+        if (struct.isSetV1()) {
+          oprot.writeI32(struct.v1);
+        }
+        if (struct.isSetV2()) {
+          oprot.writeI32(struct.v2);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, listarVerticeAresta_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+        BitSet incoming = iprot.readBitSet(2);
+        if (incoming.get(0)) {
+          struct.v1 = iprot.readI32();
+          struct.setV1IsSet(true);
+        }
+        if (incoming.get(1)) {
+          struct.v2 = iprot.readI32();
+          struct.setV2IsSet(true);
+        }
+      }
+    }
+
+  }
+
+  public static class listarVerticeAresta_result implements org.apache.thrift.TBase<listarVerticeAresta_result, listarVerticeAresta_result._Fields>, java.io.Serializable, Cloneable, Comparable<listarVerticeAresta_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listarVerticeAresta_result");
+
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRING, (short)0);
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new listarVerticeAresta_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new listarVerticeAresta_resultTupleSchemeFactory());
+    }
+
+    public String success; // required
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+      SUCCESS((short)0, "success");
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          case 0: // SUCCESS
+            return SUCCESS;
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+
+    // isset id assignments
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
+          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listarVerticeAresta_result.class, metaDataMap);
+    }
+
+    public listarVerticeAresta_result() {
+    }
+
+    public listarVerticeAresta_result(
+      String success)
+    {
+      this();
+      this.success = success;
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public listarVerticeAresta_result(listarVerticeAresta_result other) {
+      if (other.isSetSuccess()) {
+        this.success = other.success;
+      }
+    }
+
+    public listarVerticeAresta_result deepCopy() {
+      return new listarVerticeAresta_result(this);
+    }
+
+    @Override
+    public void clear() {
+      this.success = null;
+    }
+
+    public String getSuccess() {
+      return this.success;
+    }
+
+    public listarVerticeAresta_result setSuccess(String success) {
+      this.success = success;
+      return this;
+    }
+
+    public void unsetSuccess() {
+      this.success = null;
+    }
+
+    /** Returns true if field success is set (has been assigned a value) and false otherwise */
+    public boolean isSetSuccess() {
+      return this.success != null;
+    }
+
+    public void setSuccessIsSet(boolean value) {
+      if (!value) {
+        this.success = null;
+      }
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      case SUCCESS:
+        if (value == null) {
+          unsetSuccess();
+        } else {
+          setSuccess((String)value);
+        }
+        break;
+
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      case SUCCESS:
+        return getSuccess();
+
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      case SUCCESS:
+        return isSetSuccess();
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof listarVerticeAresta_result)
+        return this.equals((listarVerticeAresta_result)that);
+      return false;
+    }
+
+    public boolean equals(listarVerticeAresta_result that) {
+      if (that == null)
+        return false;
+
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
+      if (this_present_success || that_present_success) {
+        if (!(this_present_success && that_present_success))
+          return false;
+        if (!this.success.equals(that.success))
+          return false;
+      }
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(listarVerticeAresta_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      lastComparison = Boolean.valueOf(isSetSuccess()).compareTo(other.isSetSuccess());
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+      if (isSetSuccess()) {
+        lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.success, other.success);
+        if (lastComparison != 0) {
+          return lastComparison;
+        }
+      }
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+      }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("listarVerticeAresta_result(");
+      boolean first = true;
+
+      sb.append("success:");
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
+      first = false;
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class listarVerticeAresta_resultStandardSchemeFactory implements SchemeFactory {
+      public listarVerticeAresta_resultStandardScheme getScheme() {
+        return new listarVerticeAresta_resultStandardScheme();
+      }
+    }
+
+    private static class listarVerticeAresta_resultStandardScheme extends StandardScheme<listarVerticeAresta_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, listarVerticeAresta_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            case 0: // SUCCESS
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+                struct.success = iprot.readString();
+                struct.setSuccessIsSet(true);
+              } else { 
+                org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+              }
+              break;
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, listarVerticeAresta_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        if (struct.success != null) {
+          oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
+          oprot.writeString(struct.success);
+          oprot.writeFieldEnd();
+        }
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class listarVerticeAresta_resultTupleSchemeFactory implements SchemeFactory {
+      public listarVerticeAresta_resultTupleScheme getScheme() {
+        return new listarVerticeAresta_resultTupleScheme();
+      }
+    }
+
+    private static class listarVerticeAresta_resultTupleScheme extends TupleScheme<listarVerticeAresta_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, listarVerticeAresta_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+        BitSet optionals = new BitSet();
+        if (struct.isSetSuccess()) {
+          optionals.set(0);
+        }
+        oprot.writeBitSet(optionals, 1);
+        if (struct.isSetSuccess()) {
+          oprot.writeString(struct.success);
+        }
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, listarVerticeAresta_result struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {

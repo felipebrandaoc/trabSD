@@ -38,7 +38,7 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
   private static final org.apache.thrift.protocol.TField V1_FIELD_DESC = new org.apache.thrift.protocol.TField("v1", org.apache.thrift.protocol.TType.I32, (short)1);
   private static final org.apache.thrift.protocol.TField V2_FIELD_DESC = new org.apache.thrift.protocol.TField("v2", org.apache.thrift.protocol.TType.I32, (short)2);
   private static final org.apache.thrift.protocol.TField PESO_FIELD_DESC = new org.apache.thrift.protocol.TField("peso", org.apache.thrift.protocol.TType.DOUBLE, (short)3);
-  private static final org.apache.thrift.protocol.TField DIRECAO_FIELD_DESC = new org.apache.thrift.protocol.TField("direcao", org.apache.thrift.protocol.TType.BOOL, (short)4);
+  private static final org.apache.thrift.protocol.TField DIRECAO_FIELD_DESC = new org.apache.thrift.protocol.TField("direcao", org.apache.thrift.protocol.TType.I32, (short)4);
   private static final org.apache.thrift.protocol.TField DESCRICAO_FIELD_DESC = new org.apache.thrift.protocol.TField("descricao", org.apache.thrift.protocol.TType.STRING, (short)5);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
@@ -50,7 +50,7 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
   public int v1; // required
   public int v2; // required
   public double peso; // required
-  public boolean direcao; // required
+  public int direcao; // required
   public String descricao; // required
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
@@ -139,7 +139,7 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
     tmpMap.put(_Fields.PESO, new org.apache.thrift.meta_data.FieldMetaData("peso", org.apache.thrift.TFieldRequirementType.DEFAULT, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
     tmpMap.put(_Fields.DIRECAO, new org.apache.thrift.meta_data.FieldMetaData("direcao", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.BOOL)));
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     tmpMap.put(_Fields.DESCRICAO, new org.apache.thrift.meta_data.FieldMetaData("descricao", org.apache.thrift.TFieldRequirementType.DEFAULT, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
@@ -153,7 +153,7 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
     int v1,
     int v2,
     double peso,
-    boolean direcao,
+    int direcao,
     String descricao)
   {
     this();
@@ -195,7 +195,7 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
     setPesoIsSet(false);
     this.peso = 0.0;
     setDirecaoIsSet(false);
-    this.direcao = false;
+    this.direcao = 0;
     this.descricao = null;
   }
 
@@ -268,11 +268,11 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
     __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __PESO_ISSET_ID, value);
   }
 
-  public boolean isDirecao() {
+  public int getDirecao() {
     return this.direcao;
   }
 
-  public Aresta setDirecao(boolean direcao) {
+  public Aresta setDirecao(int direcao) {
     this.direcao = direcao;
     setDirecaoIsSet(true);
     return this;
@@ -345,7 +345,7 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
       if (value == null) {
         unsetDirecao();
       } else {
-        setDirecao((Boolean)value);
+        setDirecao((Integer)value);
       }
       break;
 
@@ -372,7 +372,7 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
       return Double.valueOf(getPeso());
 
     case DIRECAO:
-      return Boolean.valueOf(isDirecao());
+      return Integer.valueOf(getDirecao());
 
     case DESCRICAO:
       return getDescricao();
@@ -639,8 +639,8 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
             }
             break;
           case 4: // DIRECAO
-            if (schemeField.type == org.apache.thrift.protocol.TType.BOOL) {
-              struct.direcao = iprot.readBool();
+            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+              struct.direcao = iprot.readI32();
               struct.setDirecaoIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -679,7 +679,7 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
       oprot.writeDouble(struct.peso);
       oprot.writeFieldEnd();
       oprot.writeFieldBegin(DIRECAO_FIELD_DESC);
-      oprot.writeBool(struct.direcao);
+      oprot.writeI32(struct.direcao);
       oprot.writeFieldEnd();
       if (struct.descricao != null) {
         oprot.writeFieldBegin(DESCRICAO_FIELD_DESC);
@@ -730,7 +730,7 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
         oprot.writeDouble(struct.peso);
       }
       if (struct.isSetDirecao()) {
-        oprot.writeBool(struct.direcao);
+        oprot.writeI32(struct.direcao);
       }
       if (struct.isSetDescricao()) {
         oprot.writeString(struct.descricao);
@@ -754,7 +754,7 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
         struct.setPesoIsSet(true);
       }
       if (incoming.get(3)) {
-        struct.direcao = iprot.readBool();
+        struct.direcao = iprot.readI32();
         struct.setDirecaoIsSet(true);
       }
       if (incoming.get(4)) {

@@ -20,8 +20,8 @@ public class GrafoServer {
 			handler = new ServerHandler();
 			processor = new models.Operations.Processor(handler);
 			TServerTransport serverTransport = new TServerSocket(9090);
-			TServer server = new TSimpleServer(new Args(serverTransport).processor(processor));
-			System.out.println("Starting Simple Server");
+			TServer server = new TThreadPoolServer(new TThreadPoolServer.Args(serverTransport).processor(processor));
+			System.out.println("Starting ThreadPool Server");
 			server.serve();
 		}
 		catch(Exception e){

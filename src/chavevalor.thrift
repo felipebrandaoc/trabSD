@@ -11,7 +11,7 @@ struct Aresta {
 	1:i32 v1,
 	2:i32 v2,
 	3:double peso,
-	4:bool direcao,
+	4:i32 direcao,
 	5:string descricao	
 }
 
@@ -23,18 +23,19 @@ struct Grafo{
 service Operations{
     void carregaGrafo(1:string caminho),
     void salvaGrafo(1:string caminho),
-    bool addVertice(1:i32 nome,2:i32 cor,3:string descricao,4:double peso),
-    bool addAresta(1:i32 v1,2:i32 v2,3:double peso,4:bool direcao,5:string descricao),
+    bool addVertice(1:i32 nome,2:i32 cor,3:double peso, 4:string descricao),
+    bool addAresta(1:i32 v1,2:i32 v2,3:double peso,4:i32 direcao,5:string descricao),
     bool delVertice(1:i32 nome),
     bool delAresta(1:i32 v1,2:i32 v2),
-    bool upVertice(1:i32 nomeUp,2:Vertice V),
+    bool upVertice(1:Vertice V, 2:i32 nomeUp),
     bool upAresta(1:i32 nomeV1, 2:i32 nomeV2, 3:Aresta A),
     Vertice getVertice(1:i32 nome),
-    Aresta getAresta(1:i32 v1,2:i32 v2,3:bool flag),
+    Aresta getAresta(1:i32 v1,2:i32 v2,3:i32 direcao),
     string exibeGrafo(),
-    string exibeVertice(1:bool flag),
-    string exibeAresta(1:bool flag),
-    string listarArestasVertice(1:i32 nomeV,2:bool flag),
+    string exibeVertice(),
+    string exibeAresta(),
+    string listarArestasVertice(1:i32 nomeV),
+    string listarVerticeAresta(1:i32 v1,2:i32 v2),
     string listarVizinhosVertice(1:i32 nomeV),
 }
 
